@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useQuery } from "react-apollo-hooks";
 
 const Footer = styled.footer`
   display: flex;
