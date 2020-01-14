@@ -16,7 +16,7 @@ const Dot = styled.div`
   height: ${props => props.size}px;
   border-radius: 50%;
   background-color: ${props =>
-    props.active ? props.theme.blueColor : props.theme.greyColor};
+    props.active ? props.theme.blueColor : props.theme.lightGreyColor};
   &:not(:last-child) {
     margin-right: ${props => props.margin}px;
   }

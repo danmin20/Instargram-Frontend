@@ -75,13 +75,6 @@ const Meta = styled.div`
   padding: 15px;
 `;
 
-const MetaRow = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 0px;
-  width: 100%;
-`;
-
 const Buttons = styled.div`
   ${Button} {
     &:first-child {
@@ -171,11 +164,9 @@ export default ({
         )}
       </Files>
       <Meta>
-        <MetaRow>
           {files && files.length > 1 && (
             <DotCarousel length={files.length} active={currentItem} />
           )}
-        </MetaRow>
         <Buttons>
           <Button onClick={toggleLike}>
             {isLiked ? <HeartFull /> : <HeartEmpty />}
