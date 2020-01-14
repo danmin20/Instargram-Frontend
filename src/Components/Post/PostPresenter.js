@@ -96,7 +96,6 @@ const TimestampContainer = styled.span`
 `;
 
 const Textarea = styled(TextareaAutosize)`
-  background-color: ${props => props.theme.bgColor};
   border: none;
   width: 100%;
   resize: none;
