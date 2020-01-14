@@ -6,7 +6,8 @@ import {
   HeartEmpty,
   HeartFull,
   Prev,
-  Next
+  Next,
+  Del
 } from "../Icons";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
@@ -131,7 +132,8 @@ export default ({
   toggleLike,
   onKeyPress,
   comments,
-  selfComments
+  selfComments,
+  delComment
 }) => {
   return (
     <Post>
@@ -164,9 +166,9 @@ export default ({
         )}
       </Files>
       <Meta>
-          {files && files.length > 1 && (
-            <DotCarousel length={files.length} active={currentItem} />
-          )}
+        {files && files.length > 1 && (
+          <DotCarousel length={files.length} active={currentItem} />
+        )}
         <Buttons>
           <Button onClick={toggleLike}>
             {isLiked ? <HeartFull /> : <HeartEmpty />}
@@ -182,12 +184,16 @@ export default ({
               <Comment key={comment.id}>
                 <FatText text={comment.user.username} />
                 {comment.text}
+                <Button onClick={delComment}>
+                  <Del />
+                </Button>
               </Comment>
             ))}
             {selfComments.map(comment => (
               <Comment key={comment.id}>
                 <FatText text={comment.user.username} />
                 {comment.text}
+                <Button onClick={delComment} />
               </Comment>
             ))}
           </Comments>
