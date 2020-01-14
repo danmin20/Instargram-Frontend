@@ -1,15 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import TextareaAutosize from "react-autosize-textarea";
-import { Comment, HeartEmpty, HeartFull } from "../Icons";
+import {
+  Comment as CommentIcon,
+  HeartEmpty,
+  HeartFull,
+  Prev,
+  Next
+} from "../Icons";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
+import DotCarousel from "../DotCarousel";
+import Timestamp from "../Timestamp";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
   width: 100%;
   max-width: 600px;
   margin-bottom: 25px;
+  user-select: none;
 `;
 
 const Header = styled.header`
@@ -46,6 +55,16 @@ const File = styled.div`
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
+  opacity: ${props => (props.showing ? 1 : 0)};
+  transition: opacity 0.2s linear;
+`;
+
+const SlideButton = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  ${props => (props.type === "prev" ? "left: 10px" : "right: 10px")};
+  opacity: 0.7;
 `;
 
 const Button = styled.span`
@@ -54,6 +73,13 @@ const Button = styled.span`
 
 const Meta = styled.div`
   padding: 15px;
+`;
+
+const MetaRow = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 0px;
+  width: 100%;
 `;
 
 const Buttons = styled.div`
@@ -65,7 +91,7 @@ const Buttons = styled.div`
   margin-bottom: 10px;
 `;
 
-const Timestamp = styled.span`
+const TimestampContainer = styled.span`
   font-weight: 300;
   text-transform: uppercase;
   opacity: 0.5;
@@ -87,6 +113,17 @@ const Textarea = styled(TextareaAutosize)`
   }
 `;
 
+const Comments = styled.ul`
+  margin-top: 10px;
+`;
+
+const Comment = styled.li`
+  margin-bottom: 7px;
+  span {
+    margin-right: 5px;
+  }
+`;
+
 export default ({
   user: { username, avatar },
   location,
@@ -94,29 +131,86 @@ export default ({
   isLiked,
   likeCount,
   createdAt,
-  newComment
-}) => (
-  <Post>
-    <Header>
-      <Avatar size="sm" url={avatar} />
-      <UserColumn>
-        <FatText text={username} />
-        <Location>{location}</Location>
-      </UserColumn>
-    </Header>
-    <Files>
-      {files && files.map(file => <File id={file.id} src={file.url} />)}
-    </Files>
-    <Meta>
-      <Buttons>
-        <Button>{isLiked ? <HeartFull /> : <HeartEmpty />}</Button>
-        <Button>
-          <Comment />
-        </Button>
-      </Buttons>
-      <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
-      <Timestamp>{createdAt.substring(0, 10)}</Timestamp>
-      <Textarea placeholder={"Add a comment..."} {...newComment} />
-    </Meta>
-  </Post>
-);
+  newComment,
+  currentItem,
+  slidePrev,
+  slideNext,
+  toggleLike,
+  onKeyPress,
+  comments,
+  selfComments
+}) => {
+  return (
+    <Post>
+      <Header>
+        <Avatar size="sm" url={avatar} />
+        <UserColumn>
+          <FatText text={username} />
+          <Location>{location}</Location>
+        </UserColumn>
+      </Header>
+      <Files>
+        {files &&
+          files.map((file, index) => (
+            <File
+              key={file.id}
+              id={file.id}
+              src={file.url}
+              showing={index === currentItem}
+            />
+          ))}
+        {files && files.length > 1 && (
+          <>
+            <SlideButton type="prev" onClick={slidePrev}>
+              <Prev />
+            </SlideButton>
+            <SlideButton type="next" onClick={slideNext}>
+              <Next />
+            </SlideButton>
+          </>
+        )}
+      </Files>
+      <Meta>
+        <MetaRow>
+          {files && files.length > 1 && (
+            <DotCarousel length={files.length} active={currentItem} />
+          )}
+        </MetaRow>
+        <Buttons>
+          <Button onClick={toggleLike}>
+            {isLiked ? <HeartFull /> : <HeartEmpty />}
+          </Button>
+          <Button>
+            <CommentIcon />
+          </Button>
+        </Buttons>
+        <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
+        {comments && (
+          <Comments>
+            {comments.map(comment => (
+              <Comment key={comment.id}>
+                <FatText text={comment.user.username} />
+                {comment.text}
+              </Comment>
+            ))}
+            {selfComments.map(comment => (
+              <Comment key={comment.id}>
+                <FatText text={comment.user.username} />
+                {comment.text}
+              </Comment>
+            ))}
+          </Comments>
+        )}
+        <TimestampContainer>
+          <Timestamp createdAt={createdAt} />
+        </TimestampContainer>
+        <Textarea
+          placeholder={"Add a comment..."}
+          value={newComment.value}
+          onChange={newComment.onChange}
+          onKeyPress={onKeyPress}
+        />
+      </Meta>
+    </Post>
+  );
+};
