@@ -182,15 +182,12 @@ export default ({
               <Comment key={comment.id}>
                 <FatText text={comment.user.username} />
                 {comment.text}
-                <Button onClick={delComment}>
-                </Button>
               </Comment>
             ))}
             {selfComments.map(comment => (
               <Comment key={comment.id}>
                 <FatText text={comment.user.username} />
                 {comment.text}
-                <Button onClick={delComment} />
               </Comment>
             ))}
           </Comments>
