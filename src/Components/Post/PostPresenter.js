@@ -6,8 +6,7 @@ import {
   HeartEmpty,
   HeartFull,
   Prev,
-  Next,
-  Del
+  Next
 } from "../Icons";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
@@ -132,8 +131,7 @@ export default ({
   toggleLike,
   onKeyPress,
   comments,
-  selfComments,
-  delComment
+  selfComments
 }) => {
   return (
     <Post>
@@ -185,7 +183,6 @@ export default ({
                 <FatText text={comment.user.username} />
                 {comment.text}
                 <Button onClick={delComment}>
-                  <Del />
                 </Button>
               </Comment>
             ))}

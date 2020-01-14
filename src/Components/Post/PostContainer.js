@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
 import { useMutation, useQuery } from "react-apollo-hooks";
-import { TOGGLE_LIKE, ADD_COMMENT, DEL_COMMENT } from "./PostQueries";
+import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
 import { ME } from "../../SharedQueries";
 
 const PostContainer = ({
@@ -28,9 +28,6 @@ const PostContainer = ({
   });
   const [addCommentMutation] = useMutation(ADD_COMMENT, {
     variables: { postId: id, text: comment.value }
-  });
-  const [delCommentMutation] = useMutation(DEL_COMMENT, {
-    variables: { id: comment.id }
   });
 
   const slideNext = () => {
@@ -79,10 +76,6 @@ const PostContainer = ({
     return;
   };
 
-  const delComment = async() => {
-    await delCommentMutation();
-  };
-
   return (
     <PostPresenter
       key={id}
@@ -103,7 +96,6 @@ const PostContainer = ({
       toggleLike={toggleLike}
       onKeyPress={onKeyPress}
       selfComments={selfComments}
-      delComment={delComment}
     />
   );
 };
