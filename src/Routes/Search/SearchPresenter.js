@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const UserSection = styled.div`
+  justify-content: center;
   margin-bottom: 50px;
   display: grid;
   grid-gap: 25px;
@@ -20,6 +21,7 @@ const UserSection = styled.div`
 `;
 
 const PostSection = styled(UserSection)`
+  justify-content: center;
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: 200px;
   grid-auto-rows: 200px;

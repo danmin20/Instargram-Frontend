@@ -12,6 +12,7 @@ import FatText from "../FatText";
 import Avatar from "../Avatar";
 import DotCarousel from "../DotCarousel";
 import Timestamp from "../Timestamp";
+import { Link } from "react-router-dom";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -135,7 +136,9 @@ export default ({
   return (
     <Post>
       <Header>
-        <Avatar size="sm" url={avatar} />
+        <Link to={`/${username}`}>
+          <Avatar size="sm" url={avatar} />
+        </Link>
         <UserColumn>
           <FatText text={username} />
           <Location>{location}</Location>
