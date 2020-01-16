@@ -20,7 +20,7 @@ const Button = ({ text, onClick }) => (
 );
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };
 
 export default Button;

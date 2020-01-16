@@ -6,6 +6,7 @@ import Avatar from "../../Components/Avatar";
 import FatText from "../../Components/FatText";
 import FollowButton from "../../Components/FollowButton";
 import SquarePost from "../../Components/SquarePost";
+import Button from "../../Components/Button";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -60,7 +61,7 @@ const Bio = styled.p`
   margin: 10px 0px;
 `;
 
-const Button = styled.div`
+const ButtonStyle = styled.div`
   margin-left: 20px;
   width: 40%;
   height: 30%;
@@ -68,7 +69,7 @@ const Button = styled.div`
 
 const Posts = styled.div`
   justify-content: center;
-  margin:auto;
+  margin: auto;
   display: grid;
   grid-gap: 25px;
   grid-template-columns: repeat(4, 160px);
@@ -76,7 +77,7 @@ const Posts = styled.div`
   grid-auto-rows: 160px;
 `;
 
-export default ({ data, loading }) => {
+export default ({ data, loading, logOut }) => {
   if (loading) {
     return (
       <Wrapper>
@@ -111,9 +112,13 @@ export default ({ data, loading }) => {
           <HeaderColumn>
             <UsernameRow>
               <Username>{username}</Username>
-              <Button>
-                {!isSelf && <FollowButton id={id} isFollowing={isFollowing} />}
-              </Button>
+              <ButtonStyle>
+                {isSelf ? (
+                  <Button onClick={logOut} text="Log Out" />
+                ) : (
+                  <FollowButton id={id} isFollowing={isFollowing} />
+                )}
+              </ButtonStyle>
             </UsernameRow>
             <Counts>
               <Count>
@@ -134,17 +139,17 @@ export default ({ data, loading }) => {
           </HeaderColumn>
           <HeaderColumn></HeaderColumn>
         </Header>
-          <Posts>
-            {posts &&
-              posts.map(post => (
-                <SquarePost
-                  key={post.id}
-                  likeCount={post.likeCount}
-                  commentCount={post.commentCount}
-                  file={post.files[0]}
-                />
-              ))}
-          </Posts>
+        <Posts>
+          {posts &&
+            posts.map(post => (
+              <SquarePost
+                key={post.id}
+                likeCount={post.likeCount}
+                commentCount={post.commentCount}
+                file={post.files[0]}
+              />
+            ))}
+        </Posts>
       </Wrapper>
     );
   }
