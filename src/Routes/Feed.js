@@ -12,7 +12,6 @@ const FEED_QUERY = gql`
       id
       location
       caption
-      caption
       user {
         id
         avatar

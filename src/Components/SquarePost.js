@@ -43,26 +43,25 @@ const NumberText = styled.span`
   font-size: 16px;
 `;
 
-const SquarePost = ({ id, username, likeCount, commentCount, file }) => (
+const SquarePost = ({ id, likeCount, commentCount, file }) => (
   <Container bg={file.url}>
-    <Link to={`/${username}/${id}`}>
-    <Overlay>
-      <Number>
-        <HeartFull />
-        <NumberText>{likeCount}</NumberText>
-      </Number>
-      <Number>
-        <CommentFull />
-        <NumberText>{commentCount}</NumberText>
-      </Number>
-    </Overlay>
+    <Link to={`/${id}`}>
+      <Overlay>
+        <Number>
+          <HeartFull />
+          <NumberText>{likeCount}</NumberText>
+        </Number>
+        <Number>
+          <CommentFull />
+          <NumberText>{commentCount}</NumberText>
+        </Number>
+      </Overlay>
     </Link>
   </Container>
 );
 
 SquarePost.propTypes = {
-  id:PropTypes.string.isRequired,
-  username:PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   likeCount: PropTypes.number.isRequired,
   commentCount: PropTypes.number.isRequired,
   file: PropTypes.object.isRequired
