@@ -73,7 +73,7 @@ export default ({
       {action === "signUp" && (
         <>
           <Helmet>
-            <title>Sign Up | Prismagram</title>
+            <title>Sign Up | Instargram</title>
           </Helmet>
           <form onSubmit={onSubmit}>
             <Input placeholder={"First name"} {...firstName} />

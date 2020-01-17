@@ -5,6 +5,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
 import Loader from "../Components/Loader";
 import Post from "../Components/Post";
+import { withRouter } from "react-router-dom";
 
 const SEE_FULLPOST = gql`
   query seeFullPost($id: String!) {
@@ -43,28 +44,29 @@ const Wrapper = styled.div`
   min-height: 80vh;
 `;
 
-export default () => {
-  const { data, loading } = useQuery(SEE_FULLPOST);
+export default withRouter(({ location: { pathname } }) => {
+  const id = pathname.split("/")[2];
+  const { data, loading } = useQuery(SEE_FULLPOST, { variables: { id } });
   return (
     <Wrapper>
       <Helmet>
         <title>Post | Instargram</title>
       </Helmet>
       {loading && <Loader />}
-      {(!loading && data && data.seeFullPost)(
+      {!loading && data && data.seeFullPost && (
         <Post
-          key={data.id}
-          id={data.id}
-          caption={data.caption}
-          location={data.location}
-          user={data.user}
-          files={data.files}
-          likeCount={data.likeCount}
-          isLiked={data.isLiked}
-          comments={data.comments}
-          createdAt={data.createdAt}
+          key={data.seeFullPost.id}
+          id={data.seeFullPost.id}
+          caption={data.seeFullPost.caption}
+          location={data.seeFullPost.location}
+          user={data.seeFullPost.user}
+          files={data.seeFullPost.files}
+          likeCount={data.seeFullPost.likeCount}
+          isLiked={data.seeFullPost.isLiked}
+          comments={data.seeFullPost.comments}
+          createdAt={data.seeFullPost.createdAt}
         />
       )}
     </Wrapper>
   );
-};
+});
