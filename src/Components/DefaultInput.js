@@ -11,7 +11,7 @@ const Container = styled.input`
   padding: 0px 15px;
 `;
 
-const Input = ({
+const DefaultInput = ({
   placeholder,
   required = true,
   value,
@@ -24,19 +24,18 @@ const Input = ({
     className={className}
     placeholder={placeholder}
     required={required}
-    value={value}
+    defaultValue={defaultValue}
     onChange={onChange}
     type={type}
   />
 );
 
-Input.propTypes = {
+DefaultInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string
   
 };
 
-export default Input;
+export default DefaultInput;

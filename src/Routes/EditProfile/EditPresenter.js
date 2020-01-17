@@ -1,8 +1,13 @@
 import React from "react";
 import Helmet from "react-helmet";
 import styled from "styled-components";
-import Input from "../../Components/Input";
 import Button from "../../Components/Button";
+import { useQuery } from "react-apollo-hooks";
+import Loader from "../../Components/Loader";
+import { GET_USER } from "../Profile/ProfileContainer";
+import { withRouter } from "react-router-dom";
+import DefaultInput from "../../Components/DefaultInput";
+import Avatar from "../../Components/Avatar";
 
 const Wrapper = styled.div`
   min-height: 80vh;
@@ -17,16 +22,6 @@ const Box = styled.div`
   border-radius:0px;
   width: 100%;
   max-width: 350px;
-`;
-
-const StateChanger = styled(Box)`
-  text-align: center;
-  padding: 20px 0px;
-`;
-
-const Link = styled.span`
-  color: ${props => props.theme.blueColor};
-  cursor: pointer;
 `;
 
 const Form = styled(Box)`
@@ -47,31 +42,87 @@ const Form = styled(Box)`
   }
 `;
 
-export default ({
-  username,
-  email,
-  firstName,
-  lastName,
-  bio,
-  avatar,
-  onSubmit
-}) => (
-  <Wrapper>
-    <Form>
-      <>
-        <Helmet>
-          <title>Edit | Instargram</title>
-        </Helmet>
-        <form onSubmit={onSubmit}>
-          <Input placeholder={"First name"} {...firstName} />
-          <Input placeholder={"Last name"} {...lastName} />
-          <Input placeholder={"Email"} {...email} type="email" />
-          <Input placeholder={"Username"} {...username} />
-          <Input placeholder={"bio"} {...bio} />
-          <Input placeholder={"avatar"} {...avatar} />
-          <Button text={"Sign up"} />
-        </form>
-      </>
-    </Form>
-  </Wrapper>
+const EAvatar = styled(Avatar)`
+    margin: 5px auto;
+`;
+
+const Type = styled.div`
+  font-weight: 100;
+  font-size: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 3px;
+`;
+
+export default withRouter(
+  ({
+    location: { pathname },
+    username,
+    email,
+    firstName,
+    lastName,
+    bio,
+    avatar,
+    onSubmit
+  }) => {
+    const user = pathname.split("/")[1];
+    const { data, loading } = useQuery(GET_USER, {
+      variables: { username: user }
+    });
+    return (
+      <Wrapper>
+        <Form>
+          <>
+            <Helmet>
+              <title>Edit | Instargram</title>
+            </Helmet>
+            {loading && <Loader />}
+            {!loading && data && data.seeUser && (
+              <form onSubmit={onSubmit}>
+                <EAvatar url={data.seeUser.avatar} size={"md"} />
+                <Type>USERNAME</Type>
+                <DefaultInput
+                  placeholder={"Username"}
+                  defaultValue={data.seeUser.username}
+                  {...username}
+                />
+                <Type>FIRSTNAME</Type>
+                <DefaultInput
+                  placeholder={"First name"}
+                  defaultValue={data.seeUser.firstName}
+                  {...firstName}
+                />
+                <Type>LASTNAME</Type>
+                <DefaultInput
+                  placeholder={"Last name"}
+                  defaultValue={data.seeUser.lastName}
+                  {...lastName}
+                />
+                <Type>EMAIL</Type>
+                <DefaultInput
+                  placeholder={"Email"}
+                  defaultValue={data.seeUser.email}
+                  {...email}
+                  type="email"
+                />
+                <Type>BIOGRAPHY</Type>
+                <DefaultInput
+                  placeholder={"bio"}
+                  defaultValue={data.seeUser.bio}
+                  {...bio}
+                />
+                <Type>AVATAR URL</Type>
+                <DefaultInput
+                  placeholder={"avatar"}
+                  defaultValue={data.seeUser.avatar}
+                  {...avatar}
+                />
+                <Button text={"Edit"} />
+              </form>
+            )}
+          </>
+        </Form>
+      </Wrapper>
+    );
+  }
 );

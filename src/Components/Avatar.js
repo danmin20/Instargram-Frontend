@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 const getSize = size => {
   let number;
   if (size === "sm") {
-    number = 40;
-  } else if (size === "md") {
     number = 50;
+  } else if (size === "md") {
+    number = 100;
   } else if (size === "lg") {
     number = 150;
   }

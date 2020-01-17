@@ -8,8 +8,11 @@ export const GET_USER = gql`
   query seeUser($username: String!) {
     seeUser(username: $username) {
       id
+      email
       avatar
       username
+      firstName
+      lastName
       fullName
       isFollowing
       isSelf
