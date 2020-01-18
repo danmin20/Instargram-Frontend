@@ -25,7 +25,7 @@ const EFatText = styled(FatText)`
 const UserCard = ({ id, username, isFollowing, url, isSelf }) => (
   <Card>
     <Link to={`/${username}`}>
-      <EAvatar url={url} size={"md"} />
+      <EAvatar url={url} size={"sm"} />
     </Link>
     <EFatText text={username} />
     {!isSelf && <FollowButton id={id} isFollowing={isFollowing} />}

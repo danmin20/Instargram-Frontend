@@ -44,7 +44,7 @@ const Counts = styled.ul`
 const Count = styled.li`
   font-size: 18px;
   &:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 20px;
   }
 `;
 

@@ -117,6 +117,13 @@ const Comment = styled.li`
   }
 `;
 
+const Caption = styled.div`
+  margin: 10px 0;
+  span {
+    margin-right: 5px;
+  }
+`;
+
 export default ({
   user: { username, avatar },
   location,
@@ -131,7 +138,8 @@ export default ({
   toggleLike,
   onKeyPress,
   comments,
-  selfComments
+  selfComments,
+  caption
 }) => {
   return (
     <Post>
@@ -178,6 +186,9 @@ export default ({
           </Button>
         </Buttons>
         <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
+        <Caption>
+          <FatText text={username}/>{caption}
+        </Caption>
         {comments && (
           <Comments>
             {comments.map(comment => (
