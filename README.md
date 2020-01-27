@@ -1,13 +1,20 @@
 # Instargram Front-end
 Frontend for Instagram clone<br>
-[Instargram Back-end](https://github.com/danmin20/Instargram-Backend)
+[Instargram Back-end](https://github.com/danmin20/Instargram-Backend)<br>
+[Instargram App](https://github.com/danmin20/Instargram-App)
 
 ## App
 Name : "Instargram"
 
 ### Made With
+NodeJS<br>
+ES6<br>
+React Hooks<br>
+GraphQL Yoga<br>
+Prisma<br>
 Apollo<br>
-React Hooks
+Sendgrid<br>
+Passport<br>
 
 ### ScreenShots
 <img width="600" src="https://user-images.githubusercontent.com/50590192/72608530-38c36b80-3966-11ea-9f2b-7506544ac6c2.png">
