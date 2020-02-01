@@ -14,7 +14,6 @@ const Container = styled.input`
 const DefaultInput = ({
   placeholder,
   required = true,
-  value,
   onChange,
   type = "text",
   className,
@@ -34,8 +33,8 @@ DefaultInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   required: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  type: PropTypes.string
-  
+  type: PropTypes.string,
+  defaultValue: PropTypes.string
 };
 
 export default DefaultInput;
