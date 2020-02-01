@@ -16,6 +16,10 @@ Prisma<br>
 Apollo<br>
 Sendgrid<br>
 Passport<br>
+Expo<br>
+AWS S3<br>
+Heroku<br>
+Netlify<br>
 
 ### ScreenShots
 <img width="600" src="https://user-images.githubusercontent.com/50590192/72608530-38c36b80-3966-11ea-9f2b-7506544ac6c2.png">
