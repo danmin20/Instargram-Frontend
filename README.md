@@ -4,8 +4,7 @@ Frontend for Instagram clone<br>
 [Instargram App](https://github.com/danmin20/Instargram-App)
 
 ## App
-Name : "Instargram"<br>
-Page : [https://instargram.netlify.com/#/](https://instargram.netlify.com/#/)
+Name : "Instargram"
 
 ### Made With
 NodeJS<br>
